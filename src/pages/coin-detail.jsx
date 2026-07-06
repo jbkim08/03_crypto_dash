@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
+import Spinner from "../components/Spinner";
 
 // .env 파일에서 코인 상세 API URL을 가져옴
 const API_URL = import.meta.env.VITE_COIN_API_URL;
@@ -28,8 +29,7 @@ const CoinDetailsPage = () => {
     fetchCoin();
   }, [id]);
 
-  if (loading)
-    return <div className="loading">데이터를 불러오는 중입니다...</div>;
+  if (loading) return <Spinner />;
   if (error) return <div className="error">에러가 발생했습니다: {error}</div>;
   if (!coin) return null;
 
