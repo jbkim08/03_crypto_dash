@@ -3,8 +3,9 @@ import CoinCard from "./components/CoinCard";
 import LimitSelector from "./components/LimitSelector";
 import FilterInput from "./components/FilterInput";
 import SortSelector from "./components/SortSelector";
-import { Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import HomePage from "./pages/home";
+import AboutPage from "./pages/about";
 
 const API_URL = import.meta.env.VITE_COINS_API_URL;
 
@@ -55,6 +56,7 @@ const App = () => {
           />
         }
       />
+      <Route path="/about" element={<AboutPage />} />
     </Routes>
   );
 };
