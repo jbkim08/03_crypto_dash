@@ -77,11 +77,11 @@ const CoinDetailsPage = () => {
         </h4>
         <h4>
           <span>24시간 최고가</span>
-          {coin.market_data.high_24h.krw.toLocaleString()}
+          {coin.market_data.high_24h.krw?.toLocaleString()}
         </h4>
         <h4>
           <span>24시간 최저가</span>
-          {coin.market_data.low_24h.krw.toLocaleString()}
+          {coin.market_data.low_24h.krw?.toLocaleString()}
         </h4>
         <h4>
           <span>시가총액</span>
