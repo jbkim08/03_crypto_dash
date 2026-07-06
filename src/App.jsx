@@ -6,6 +6,7 @@ import SortSelector from "./components/SortSelector";
 import { Route, Routes } from "react-router";
 import HomePage from "./pages/home";
 import AboutPage from "./pages/about";
+import Header from "./components/Header";
 
 const API_URL = import.meta.env.VITE_COINS_API_URL;
 
@@ -38,26 +39,29 @@ const App = () => {
   //입력한 문자열이 코인의 심볼 또는 이름에 포함되어 있으면 남음(필터링)
 
   return (
-    <Routes>
-      {/* 루트 주소(/)로 접속했을 때 HomePage 컴포넌트를 보여주고 필요한Props 전달 */}
-      <Route
-        path="/"
-        element={
-          <HomePage
-            coins={coins}
-            filter={filter}
-            setFilter={setFilter}
-            limit={limit}
-            setLimit={setLimit}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            loading={loading}
-            error={error}
-          />
-        }
-      />
-      <Route path="/about" element={<AboutPage />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        {/* 루트 주소(/)로 접속했을 때 HomePage 컴포넌트를 보여주고 필요한Props 전달 */}
+        <Route
+          path="/"
+          element={
+            <HomePage
+              coins={coins}
+              filter={filter}
+              setFilter={setFilter}
+              limit={limit}
+              setLimit={setLimit}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              loading={loading}
+              error={error}
+            />
+          }
+        />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </>
   );
 };
 
