@@ -3,6 +3,8 @@ import CoinCard from "./components/CoinCard";
 import LimitSelector from "./components/LimitSelector";
 import FilterInput from "./components/FilterInput";
 import SortSelector from "./components/SortSelector";
+import { Routes } from "react-router";
+import HomePage from "./pages/home";
 
 const API_URL = import.meta.env.VITE_COINS_API_URL;
 
@@ -33,53 +35,27 @@ const App = () => {
     fetchCoins();
   }, [limit]); //리밋이 바뀔때마다
   //입력한 문자열이 코인의 심볼 또는 이름에 포함되어 있으면 남음(필터링)
-  const filteredCoins = coins
-    .filter((coin) => {
-      return (
-        coin.name.toLowerCase().includes(filter.toLowerCase()) ||
-        coin.symbol.toLowerCase().includes(filter.toLowerCase())
-      );
-    })
-    .slice()
-    .sort((a, b) => {
-      switch (sortBy) {
-        case "market_cap_desc":
-          return b.market_cap - a.market_cap;
-        case "market_cap_asc":
-          return a.market_cap - b.market_cap;
-        case "price_desc":
-          return b.current_price - a.current_price;
-        case "price_asc":
-          return a.current_price - b.current_price;
-        case "change_desc":
-          return b.price_change_percentage_24h - a.price_change_percentage_24h;
-        case "change_asc":
-          return a.price_change_percentage_24h - b.price_change_percentage_24h;
-      }
-    });
 
   return (
-    <div>
-      <h1>🚀 크립토 대시 보드</h1>
-      {loading && <p>로딩중...</p>}
-      {error && <div className="error">{error}</div>}
-      {/* 입력창과 선택창을 한줄에 정렬 */}
-      <div className="top-controls">
-        <FilterInput filter={filter} onFilterChange={setFilter} />
-        <LimitSelector limit={limit} onLimitChange={setLimit} />
-        <SortSelector sortBy={sortBy} onSortChange={setSortBy} />
-      </div>
-
-      {!loading && !error && (
-        <main className="grid">
-          {filteredCoins.length > 0 ? (
-            filteredCoins.map((coin) => <CoinCard key={coin.id} coin={coin} />)
-          ) : (
-            <p>일치하는 코인이 없습니다.</p>
-          )}
-        </main>
-      )}
-    </div>
+    <Routes>
+      {/* 루트 주소(/)로 접속했을 때 HomePage 컴포넌트를 보여주고 필요한Props 전달 */}
+      <Route
+        path="/"
+        element={
+          <HomePage
+            coins={coins}
+            filter={filter}
+            setFilter={setFilter}
+            limit={limit}
+            setLimit={setLimit}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            loading={loading}
+            error={error}
+          />
+        }
+      />
+    </Routes>
   );
 };
 
